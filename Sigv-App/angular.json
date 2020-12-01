@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "Sigv-App"
+  "defaultProject": "Sigv-App",
+  "cli": {
+    "analytics": "1a9f5214-ac8f-46b7-ad7e-e20fdbca44e9"
+  }
 }
