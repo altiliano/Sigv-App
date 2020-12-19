@@ -1,46 +1,42 @@
 
+<form [formGroup]="loginForm" (ngSubmit)="login()" >
 <div class="login-page">
   <div class="row">
     <div class="col-4 left-side">
       <div class="container login-body">
         <div class="login__logo">
-          <img src="../../assets/vRYR61-logo.png" width="100%">
+          <img  src="../../assets/vRYR61-logo.png" width="100%">
           <h5>Sign In To Pilot Area</h5>
         </div>
         <div class="login-form">
-          <div class="input-group">
-            <input class="form-control" type="text" placeholder="Email"/>
+          <div class="input-group"   [ngClass]="{'input-with-error':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}">
+            <input class="form-control" formControlName="email" type="text" placeholder="Email"
+            [ngClass]="{'is-invalid':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}"/>
+            <div *ngIf=" loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')"  class="invalid-feedback">Email is required</div>
+
           </div>
-          <div class="input-group">
-            <input class="form-control" type="password" placeholder="Password"/>
+          <div class="input-group" [ngClass]="{'input-with-error':loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password') }">
+            <input class="form-control" type="password" formControlName="password" placeholder="Password"
+            [ngClass]="{'is-invalid': loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password')}" />
+            <div class="invalid-feedback" *ngIf="loginForm.get('password')?.touched  && loginForm.get('password')?.hasError('required') ">Password is required</div>
           </div>
         <div class="input-group login-remember">
           <input class="form-control" type="checkbox" />
           <div class="row">
-            <p class=" col ">Remember me</p>
-            <a class=" col ">Forgetten Password?</a>
+            <p class="col">Remember me</p>
+            <a class="col">Forgetten Password?</a>
           </div>
         </div>
         <div class="login-form-footer">
-          <button type="button" class="btn btn-primary">Login</button>
+          <button type="button" class="btn btn-primary" type="submit">Login</button>
         </div>
 
         </div>
       </div>
     </div>
-
   <div class="col-8 rigth-side">
-    <div class="login__section">
-        <div class="kt-login__block">
-          <h3 class="kt-login__title"></h3>
-        </div>
-        <div class="kt-login__desc">
-
-        </div>
-    </div>
-
-  </div>
-
 </div>
 </div>
+</div>
+</form>
 

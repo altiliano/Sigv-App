@@ -41,11 +41,10 @@
 
 .login-remember a{
   font-size: 13px ;
-  display: flex;
+  display: block;
   text-align: right;
   text-decoration: none;
   color: #495057;
-  margin: 0;
 }
 .login-remember a:hover {
   color: blue;
@@ -60,12 +59,12 @@
   background-image: url("../../assets/Screenshot_595.png");
   background-attachment: fixed;
   background-size: cover;
-  background-repeat: no-repeat;
+  background-position: top;
 
 }
 
 .login-page{
-  height:  calc(100vh - 56px);
+  height:  94.3vh;
   max-width:  100%;
 }
 
@@ -110,6 +109,7 @@
   display: flex;
   align-content: center;
   flex-wrap: wrap;
+  padding-bottom: 30px;
 
 }
 
@@ -127,6 +127,15 @@
   flex-wrap: wrap;
   width: 100%;
 
+}
+
+.invalid-feedback {
+  font-size: 63%;
+}
+
+
+.input-with-error input{
+  border-bottom: 2px solid rgb(197, 7, 7);
 }
 
 
