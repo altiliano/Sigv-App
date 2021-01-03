@@ -1,24 +1,67 @@
 
-<form [formGroup]="loginForm" (ngSubmit)="login()" >
 <div class="login-page">
   <div class="row">
     <div class="col-4 left-side">
       <div class="container login-body">
         <div class="login__logo">
           <img alt="start image" src="../../assets/vRYR61-logo.png" width="100%">
-          <h5>Sign In To Pilot Area</h5>
+          <h5 *ngIf="isLoginForm">Sign In To Pilot Area</h5>
+          <h5 *ngIf="isRegisterForm">Create new User</h5>
         </div>
-        <div class="login-form">
+
+        <div class="main-form" *ngIf="!isLoginForm && !isRegisterForm" >
+          <button type="button" class="btn btn-primary" (click)="goToLoginForm()">I have already account</button>
+          <button type="button" class="btn btn-primary" (click)="gotoRegisterForm()">I don't have account</button>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="commumSubmit()" >
+        <div class="rgister-form" *ngIf="!isLoginForm && isRegisterForm"  >
+
+          <div class="input-group" [ngClass]="{'input-with-error':  registerForm.get('email')?.touched  && registerForm.get('email')?.errors}">
+            <input class="form-control hide-placeHolder" formControlName="email" type="text" placeholder="Email"  [ngClass]="{'is-invalid':  registerForm.get('email')?.touched  && registerForm.get('email')?.errors}"/>
+            <div class="invalid-feedback" *ngIf="registerForm.get('email')?.touched  && registerForm.get('email')?.hasError('required')">Email is required</div>
+          </div>
+
+          <div class="input-group"[ngClass]="{'input-with-error':  registerForm.get('confirmEmail')?.touched  && registerForm.get('confirmEmail')?.errors}" >
+            <input class="form-control hide-placeHolder" [ngClass]="{'is-invalid':  registerForm.get('confirmEmail')?.touched  && registerForm.get('confirmEmail')?.errors}" formControlName="confirmEmail" type="text" placeholder="confirm email" />
+            <div class="invalid-feedback" *ngIf="registerForm.get('confirmEmail')?.touched  && registerForm.get('confirmEmail')?.hasError('required')">Cofirm email is required</div>
+          </div>
+
+          <div class="input-group"  [ngClass]="{'input-with-error':  registerForm.get('password')?.touched  && registerForm.get('password')?.errors}">
+            <input class="form-control hide-placeHolder"  [ngClass]="{'is-invalid':registerForm.get('password')?.touched  && registerForm.get('password')?.errors && registerForm.get('password') }" formControlName="password" type="text" placeholder="password" />
+            <div class="invalid-feedback" *ngIf="registerForm.get('password')?.touched  && registerForm.get('password')?.hasError('required')">Password is required</div>
+          </div>
+
+          <div class="input-group"  [ngClass]="{'input-with-error':  registerForm.get('confirmPassword')?.touched  && registerForm.get('confirmPassword')?.errors}">
+            <input class="form-control hide-placeHolder" formControlName="confirmPassword" type="text" placeholder="confirm password"
+            [ngClass]="{'is-invalid':registerForm.get('confirmPassword')?.touched  && registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword') }"/>
+            <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword')?.touched  && registerForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</div>
+          </div>
+
+          <div class="input-group" [ngClass]="{'input-with-error':  registerForm.get('dateOfBithDay')?.touched  && registerForm.get('dateOfBithDay')?.errors}">
+            <input class="form-control hide-placeHolder" formControlName="dateOfBithDay" type="text" placeholder="date Of Birth Date"
+            [ngClass]="{'is-invalid':  registerForm.get('dateOfBithDay')?.touched  && registerForm.get('dateOfBithDay')?.errors}" />
+            <div class="invalid-feedback" *ngIf="registerForm.get('dateOfBithDay')?.touched  && registerForm.get('dateOfBithDay')?.hasError('required')">Date of Birthday is required</div>
+          </div>
+
+          <div class="login-form-footer">
+            <button type="button" class="btn btn-primary" type="submit">Register</button>
+            <button type="button" class="btn btn-primary rigth-btn" (click)="goToLoginForm()">Login</button>
+          </div>
+        </div>
+        </form>
+
+        <form [formGroup]="loginForm" (ngSubmit)="commumSubmit()" >
+        <div class="login-form" *ngIf="isLoginForm && !isRegisterForm" >
           <div class="input-group"   [ngClass]="{'input-with-error':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}">
             <input class="form-control" formControlName="email" type="text" placeholder="Email"
             [ngClass]="{'is-invalid':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}"/>
-            <div *ngIf=" loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')"  class="invalid-feedback">Email is required</div>
+            <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')"  class="invalid-feedback">Email is required</div>
 
           </div>
           <div class="input-group" [ngClass]="{'input-with-error':loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password') }">
             <input class="form-control" type="password" formControlName="password" placeholder="Password"
             [ngClass]="{'is-invalid': loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password')}" />
-            <div class="invalid-feedback" *ngIf="loginForm.get('password')?.touched  && loginForm.get('password')?.hasError('required') ">Password is required</div>
+            <div class="invalid-feedback" *ngIf="loginForm.get('password')?.touched  && loginForm.get('password')?.hasError('required')">Password is required</div>
           </div>
         <div class="input-group login-remember">
           <input class="form-control" type="checkbox" />
@@ -29,14 +72,15 @@
         </div>
         <div class="login-form-footer">
           <button type="button" class="btn btn-primary" type="submit">Login</button>
+          <button type="button" class="btn btn-primary rigth-btn" (click)="gotoRegisterForm()">Register</button>
         </div>
-
         </div>
+        </form>
       </div>
     </div>
   <div class="col-8 rigth-side">
 </div>
 </div>
 </div>
-</form>
+
 

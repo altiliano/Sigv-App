@@ -89,6 +89,37 @@
   padding-left: 0%;
 }
 
+.rgister-form input {
+  width: 100%;
+  padding-top: 20px;
+  border: none;
+  outline: none;
+  border-bottom: 2px solid rgb(192, 192, 192);
+  border-radius: 0px;
+  outline: none;
+  margin-bottom: 10px;
+  padding-bottom: 30px;
+  padding-left: 0%;
+}
+ .hide-placeHolder{
+  overflow: hidden;
+  &:before{
+    content: "asdad";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 100%;
+    background: red;
+  }
+  &:focus{
+     &::-webkit-input-placeholder {
+      text-indent: -200px;
+    }
+   }
+}
+
+
 .form-control:focus {
   border-color: inherit;
   -webkit-box-shadow: none;
@@ -122,11 +153,15 @@
 }
 
 .login-form-footer{
-  align-items: center;
-  display: flex;
+  display: block;
   flex-wrap: wrap;
+  margin-top: 10%;
   width: 100%;
 
+}
+
+.rigth-btn{
+  float: right;
 }
 
 .invalid-feedback {
@@ -136,6 +171,21 @@
 
 .input-with-error input{
   border-bottom: 2px solid rgb(197, 7, 7);
+}
+
+.main-form  {
+  display: block;
+}
+
+.main-form button{
+  min-width: 100%;
+  margin-bottom: auto;
+}
+
+.input-placeholder {
+  color: blue;
+  //@include transition(.3s ease-in);
+  transform-origin: 0 50%;
 }
 
 
