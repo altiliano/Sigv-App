@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, RequiredValidator, Validators } from '@angular/forms';
+import { AuthService } from '../_services/auth.service';
+import { UserRegister } from '../_models/userRegister';
 
 @Component({
   selector: 'app-home',
@@ -11,8 +13,9 @@ export class HomeComponent implements OnInit {
   registerForm: FormGroup;
   isLoginForm: boolean = false;
   isRegisterForm: boolean = false;
+  userRegister!: UserRegister;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.loginForm = this.fb.group({
       email: ['' , Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]]
@@ -20,8 +23,8 @@ export class HomeComponent implements OnInit {
     this.registerForm = this.fb.group({
       email: ['' , Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]],
-      confirmEmail: ['' , Validators.required],
-      dateOfBithDay: ['' , Validators.required],
+      emailConfirmation: ['' , Validators.required],
+      birthDate: ['' , Validators.required],
       confirmPassword: ['', [Validators.required, Validators.minLength(4)]],
     }, {validators: this.passwordMatchValidator, Validators: this.emailMatchValidator});
 
@@ -35,6 +38,20 @@ export class HomeComponent implements OnInit {
   login() {
   if  (this.loginForm.valid)  {}
 
+  }
+
+  register()  {
+    if (this.registerForm.valid)  {
+      this.userRegister = Object.assign({}, this.registerForm.value);
+      this.userRegister.firstName ='Altiliano';
+      this.userRegister.lastName = 'Fonseca';
+      console.info(this.userRegister)
+      this.authService.register(this.userRegister).subscribe(() =>{
+        console.info("register susscessfuly")
+      }, error =>{
+          console.error(error)
+      });
+    }
   }
 
   goToLoginForm() {
@@ -59,7 +76,11 @@ export class HomeComponent implements OnInit {
   commumSubmit() {
     if  ( this.isLoginForm) {
       this.login();
+    } else {
+      this.register();
     }
+
+
   }
 
   refreshForm() {
@@ -72,7 +93,7 @@ export class HomeComponent implements OnInit {
 
 
   emailMatchValidator(g: FormGroup)  {
-    return g.get('email')?.value === g.get('confirmEmail')?.value ?  null : { 'missmatch': true};
+    return g.get('email')?.value === g.get('emailConfirmation')?.value ?  null : { 'missmatch': true};
   }
 
 }
