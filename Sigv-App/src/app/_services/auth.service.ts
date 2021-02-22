@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 import { User } from '../_models/user';
 import { UserRegister } from '../_models/userRegister';
 import { HttpHeaders } from '@angular/common/http';
+import { Authenticate } from '../_models/authenticate';
 
 @Injectable({
   providedIn: 'root'
@@ -16,20 +17,21 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   decodeToken: any;
   currentUser!: User;
+  authenticate!: Authenticate;
 
 constructor(private http: HttpClient) { }
 
 
 login(model: any) {
-  return this.http.post(this.baseUrl + 'login', model)
+  return this.http.post(this.baseUrl + 'login', model).
       pipe(
         map((response: any) => {
-          const user = response;
-          if(user) {
-            localStorage.setItem('token',user.token);
-            localStorage.setItem('user', JSON.stringify(user.user));
+          const authenticate = response;
+          if(authenticate) {
+            localStorage.setItem('token',authenticate.token);
+            //localStorage.setItem('user', JSON.stringify(user.user));
             this.decodeToken = this.jwtHelper.decodeToken;
-            this.currentUser = user.user;
+            //this.currentUser = user.user;
           }
         })
       );
@@ -39,6 +41,7 @@ login(model: any) {
 
 loggedIn()  {
   const token = localStorage.getItem('token');
+  console.log("token: " + token)
   if(!token)  {
     return false;
   }

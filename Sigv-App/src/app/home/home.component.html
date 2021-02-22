@@ -54,16 +54,16 @@
         </div>
         </form>
 
-        <form [formGroup]="loginForm" (ngSubmit)="commumSubmit()" >
+        <form [formGroup]="loginForm" (ngSubmit)="login()" >
         <div class="login-form" *ngIf="isLoginForm && !isRegisterForm" >
           <div class="input-group"   [ngClass]="{'input-with-error':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}">
-            <input class="form-control" formControlName="email" type="text" placeholder="Email"
+            <input class="form-control" formControlName="email" type="text" placeholder="Email"  [(ngModel)]="model.username"
             [ngClass]="{'is-invalid':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}"/>
             <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')"  class="invalid-feedback">Email is required</div>
 
           </div>
           <div class="input-group" [ngClass]="{'input-with-error':loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password') }">
-            <input class="form-control" type="password" formControlName="password" placeholder="Password"
+            <input class="form-control" type="password" formControlName="password" placeholder="Password" [(ngModel)]="model.password"
             [ngClass]="{'is-invalid': loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password')}" />
             <div class="invalid-feedback" *ngIf="loginForm.get('password')?.touched  && loginForm.get('password')?.hasError('required')">Password is required</div>
           </div>

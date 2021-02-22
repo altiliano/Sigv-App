@@ -8,3 +8,8 @@ export class UserService {
 constructor() { }
 
 }
+
+
+getUserInfo(){
+
+}

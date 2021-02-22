@@ -6,6 +6,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpClientModule} from '@angular/common/http';
 
+import { Router, RouterModule, ActivatedRouteSnapshot } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -17,6 +18,9 @@ import { from } from 'rxjs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { appRoutes } from './route';
+import { DashbordResolverService } from './_resolver/dashbord-resolver.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -26,7 +30,8 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
       NavComponent,
-      HomeComponent
+      HomeComponent,
+      DashboardComponent
    ],
   imports: [
     HttpClientModule,
@@ -37,6 +42,7 @@ export function tokenGetter() {
     MatDatepickerModule,
     MaterialModule,
     ReactiveFormsModule,
+    RouterModule.forRoot(appRoutes),
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
@@ -49,7 +55,7 @@ export function tokenGetter() {
     })
   ],
   exports:[ ],
-  providers: [AuthService],
+  providers: [AuthService, DashbordResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

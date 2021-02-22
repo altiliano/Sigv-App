@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, RequiredValidator, Validators } from '@angular/forms';
 import { AuthService } from '../_services/auth.service';
 import { UserRegister } from '../_models/userRegister';
+import { User } from '../_models/user';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -14,8 +16,9 @@ export class HomeComponent implements OnInit {
   isLoginForm: boolean = false;
   isRegisterForm: boolean = false;
   userRegister!: UserRegister;
+  model: any = {};
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['' , Validators.required],
       password: ['', [Validators.required, Validators.minLength(4)]]
@@ -36,7 +39,17 @@ export class HomeComponent implements OnInit {
 
 
   login() {
-  if  (this.loginForm.valid)  {}
+  if  (this.loginForm.valid)  {
+    this.authService.login(this.model).subscribe( next => {
+      //this.alertify.success('logged in sucessfully');
+      console.error("login succes")
+    }, error => {
+       //this.alertify.error(error);
+    }, () => {
+      console.error("calling route")
+        this.router.navigate(['/dashboard']);
+    });
+  }
 
   }
 

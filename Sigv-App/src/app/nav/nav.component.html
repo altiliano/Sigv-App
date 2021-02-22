@@ -1,14 +1,15 @@
 <nav id="main-nav" class="navbar">
 
     <form class="form-inline">
-      <a class="btn nav-btn">Home</a>
-      <a class="btn nav-btn">News</a>
-      <a class="btn nav-btn">Flight Center</a>
-      <a class="btn nav-btn">Flight Map</a>
-      <a class="btn nav-btn">Envets</a>
-      <a class="btn nav-btn">Documents</a>
-      <a class="btn nav-btn">Resources</a>
+      <a  class="btn nav-btn"  routerLinkActive="active" routerLink ="['/home']">Home</a>
 
+      <a class="btn nav-btn" *ngIf="loggedIn()" routerLink="['/dashboard']">DashBoard</a>
+      <a class="btn nav-btn" *ngIf="loggedIn()">News</a>
+      <a class="btn nav-btn" *ngIf="loggedIn()">Flight Center</a>
+      <a class="btn nav-btn" *ngIf="loggedIn()" >Flight Map</a>
+      <a class="btn nav-btn" *ngIf="loggedIn()">Envets</a>
+      <a class="btn nav-btn" *ngIf="loggedIn()" >Documents</a>
+      <a class="btn nav-btn" *ngIf="loggedIn()">Resources</a>
     </form>
 
 </nav>
