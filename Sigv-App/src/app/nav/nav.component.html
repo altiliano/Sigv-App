@@ -1,9 +1,8 @@
 <nav id="main-nav" class="navbar">
 
     <form class="form-inline">
-      <a  class="btn nav-btn"  routerLinkActive="active" routerLink ="['/home']">Home</a>
-
-      <a class="btn nav-btn" *ngIf="loggedIn()" routerLink="['/dashboard']">DashBoard</a>
+      <a  class="btn nav-btn" *ngIf="!loggedIn()"   routerLink ="['/home']">Home</a>
+      <a class="btn nav-btn" *ngIf="loggedIn()" routerLink="['/dashboard']">Dashboard</a>
       <a class="btn nav-btn" *ngIf="loggedIn()">News</a>
       <a class="btn nav-btn" *ngIf="loggedIn()">Flight Center</a>
       <a class="btn nav-btn" *ngIf="loggedIn()" >Flight Map</a>
