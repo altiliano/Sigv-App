@@ -1,0 +1,53 @@
+
+
+.main {
+  margin-top: 10px;
+  background-color:rgb(233, 231, 231);
+  height: 60px;
+
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+
+}
+
+.header-label {
+  margin-left: 10px;
+  padding: 0%;
+  color: white;
+}
+
+
+.icon-ranking{
+  float:  right;
+  margin-right: 20px;
+}
+
+fa-icon {
+  color: white;
+}
+
+.statistic-table {
+  margin-top: 3px;
+  background-color:rgb(233, 231, 231);
+
+}
+
+.statistic-table-column {
+  max-width: 110px;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.column-label-header {
+  font-size: 25px;
+  font-weight: 500;
+  max-height: 15px;
+}
+
+.column-label-description {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+

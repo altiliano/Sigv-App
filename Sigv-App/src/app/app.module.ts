@@ -21,6 +21,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { appRoutes } from './route';
 import { DashbordResolverService } from './_resolver/dashbord-resolver.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -52,7 +53,8 @@ export function tokenGetter() {
         allowedDomains: ['localhost:8080'],
         disallowedRoutes: ['localhost:8080/api/user']
       }
-    })
+    }),
+    FontAwesomeModule
   ],
   exports:[ ],
   providers: [AuthService, DashbordResolverService],
