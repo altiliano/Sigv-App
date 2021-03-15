@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 
 import { Router, RouterModule, ActivatedRouteSnapshot } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
@@ -22,6 +22,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { appRoutes } from './route';
 import { DashbordResolverService } from './_resolver/dashbord-resolver.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TokenInterceptorService } from './providers/token-interceptor.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -57,7 +58,12 @@ export function tokenGetter() {
     FontAwesomeModule
   ],
   exports:[ ],
-  providers: [AuthService, DashbordResolverService],
+  providers: [AuthService, DashbordResolverService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

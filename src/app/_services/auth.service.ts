@@ -48,8 +48,8 @@ register(user: UserRegister)  {
  }
 
  refreshToken() {
-   if (this.isTokenExpired()) {
-     this.http.get(this.baseUrl + 'refreshToken').pipe(
+    return this.http.get(this.baseUrl + 'refreshToken')
+     .pipe(
        map( (response: any) => {
          const authenticate = response;
          if (authenticate) {
@@ -57,7 +57,7 @@ register(user: UserRegister)  {
          }
        })
      )
-   }
+
 
  }
 
