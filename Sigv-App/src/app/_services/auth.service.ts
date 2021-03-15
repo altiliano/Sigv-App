@@ -40,16 +40,37 @@ login(model: any) {
 
 
 loggedIn()  {
-  const token = localStorage.getItem('token');
-  console.log("token: " + token)
-  if(!token)  {
-    return false;
-  }
-  return !this.jwtHelper.isTokenExpired(token);
+  return this.isTokenExpired();
 }
 
 register(user: UserRegister)  {
   return  this.http.post(this.baseUrl + 'register',user);
+ }
+
+ refreshToken() {
+   if (this.isTokenExpired()) {
+     this.http.get(this.baseUrl + 'refreshToken').pipe(
+       map( (response: any) => {
+         const authenticate = response;
+         if (authenticate) {
+           localStorage.setItem('token',authenticate.token);
+         }
+       })
+     )
+   }
+
+ }
+
+ isTokenExpired() {
+  const token = this.getLocalStoreToken();
+  if(!token)  {
+    return false;
+  }
+  return !this.jwtHelper.isTokenExpired(token);
+ }
+
+ getLocalStoreToken() {
+  return localStorage.getItem('token');
  }
 
 }
