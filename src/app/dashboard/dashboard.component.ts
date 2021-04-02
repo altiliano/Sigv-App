@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { faFilm } from '@fortawesome/free-solid-svg-icons';
+import { faFilm, faPlane } from '@fortawesome/free-solid-svg-icons';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import {faChartBar} from '@fortawesome/free-solid-svg-icons';
 
@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   filmIcon = faFilm;
   faCoffee = faCoffee;
   faChartBar = faChartBar;
+  faPlane = faPlane;
 
   constructor() { }
 
