@@ -12,12 +12,7 @@ export class DashboardService {
 
   constructor(private http: HttpClient) { }
 
-
-  getUserInfo(): Observable<User>{
-    return this.http.get<User>(this.baseUrl + 'detail');
-  }
-
-  getUserInformation(): Observable<User> {
+  getUserDetail(): Observable<User> {
     return this.http.get<User>(this.baseUrl + 'detail');
   }
 }

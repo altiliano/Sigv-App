@@ -15,7 +15,7 @@ export class DashbordResolverService implements Resolve<User>{
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<User> {
-    return this.dashborService.getUserInformation()
+    return this.dashborService.getUserDetail()
   }
 
 

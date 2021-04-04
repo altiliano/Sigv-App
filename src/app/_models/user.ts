@@ -9,7 +9,7 @@ export interface User {
   hoursFlown: number;
   pireps: number;
   averageLandingRate: number;
-  currentLocation: number;
+  currentLocation: String;
   birthDate: Date;
   username: string;
 
