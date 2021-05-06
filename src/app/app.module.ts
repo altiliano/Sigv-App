@@ -23,6 +23,9 @@ import { appRoutes } from './route';
 import { DashbordResolverService } from './_resolver/dashbord-resolver.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TokenInterceptorService } from './providers/token-interceptor.service';
+import { MatDialogModule } from '@angular/material/dialog';
+import { AirportComponent } from './admin/airport/airport.component';
+import { CreateAirportDialogComponent } from './admin/airport/createAirportDialog/createAirportDialog.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -33,7 +36,9 @@ export function tokenGetter() {
     AppComponent,
       NavComponent,
       HomeComponent,
-      DashboardComponent
+      DashboardComponent,
+      CreateAirportDialogComponent,
+      AirportComponent
    ],
   imports: [
     HttpClientModule,
@@ -55,7 +60,8 @@ export function tokenGetter() {
         disallowedRoutes: ['localhost:8080/api/user']
       }
     }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    MatDialogModule
   ],
   exports:[ ],
   providers: [AuthService, DashbordResolverService,

@@ -4,6 +4,7 @@ import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AuthGuard } from './_guard/auth.guard';
 import { DashbordResolverService } from './_resolver/dashbord-resolver.service';
+import { AirportComponent } from './admin/airport/airport.component';
 
 
 export const appRoutes: Routes = [
@@ -15,7 +16,8 @@ export const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {path: 'dashboard', component: DashboardComponent,
-                          resolve: {users:DashbordResolverService }}
+                          resolve: {users:DashbordResolverService }},
+      {path: 'airport', component: AirportComponent}
     ]
   },
 
