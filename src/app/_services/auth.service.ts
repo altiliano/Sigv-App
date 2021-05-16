@@ -73,4 +73,8 @@ register(user: UserRegister)  {
   return localStorage.getItem('token');
  }
 
+ saveToken(token: string) {
+  localStorage.setItem('token',token);
+ }
+
 }

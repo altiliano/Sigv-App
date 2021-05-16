@@ -16,13 +16,7 @@ export class TokenInterceptorService {
   Observable<HttpEvent<any>> {
 
   // Get token & add to request headers
-  let token = this.getToken();
-  request = request.clone({
-    headers: request.headers
-      .set('Authorization', `Bearer ${token}`)
-  });
-
-
+  request = this.addRefreshTokenToAuthorizationHeader(request);
 
   // Continue original request
   return next.handle(request);
@@ -32,15 +26,22 @@ export class TokenInterceptorService {
 
 
  getToken() {
-   if (!this.authService.isTokenExpired()) {
-     this.authService.refreshToken().subscribe( next => {
-      console.log("refresh token succes!")
-     },error =>{
-       console.log(error)
-     });
+   if (!this.authService.isTokenExpired() && this.authService.getLocalStoreToken() != null) {
+     this.authService.refreshToken();
    }
    return this.authService.getLocalStoreToken();
  }
+
+ addRefreshTokenToAuthorizationHeader(request :HttpRequest<any>) {
+  let token = this.getToken();
+  if(token != null) {
+    return request.clone({
+      headers: request.headers
+        .set('Authorization', `Bearer ${token}`)
+    });
+  }
+  return request;
+}
 
 
 
