@@ -26,6 +26,7 @@ import { TokenInterceptorService } from './providers/token-interceptor.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AirportComponent } from './admin/airport/airport.component';
 import { CreateAirportDialogComponent } from './admin/airport/createAirportDialog/createAirportDialog.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -50,6 +51,7 @@ export function tokenGetter() {
     MaterialModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
+    NgbModule,
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),

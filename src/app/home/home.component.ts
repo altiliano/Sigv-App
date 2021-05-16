@@ -34,7 +34,9 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    if(this.authService.loggedIn()) {
+      this.router.navigate(['/dashboard']);
+    }
   }
 
 

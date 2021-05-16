@@ -9,7 +9,3 @@ constructor() { }
 
 }
 
-
-getUserInfo(){
-
-}

@@ -4,11 +4,34 @@
       <a  class="btn nav-btn" *ngIf="!loggedIn()"   routerLink ="['/home']">Home</a>
       <a class="btn nav-btn" *ngIf="loggedIn()" routerLink="['/dashboard']">Dashboard</a>
       <a class="btn nav-btn" *ngIf="loggedIn()">News</a>
+
+            <div ngbDropdown class="d-inline-block " *ngIf="loggedIn()">
+            <button class="btn  nav-btn" id="dropdownBasic1" ngbDropdownToggle>Management</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button  ngbDropdownItem [routerLink]="['/airport']">Airport </button>
+              <button ngbDropdownItem>Aircraft</button>
+              <button ngbDropdownItem>Route</button>
+              <button ngbDropdownItem>Event</button>
+            </div>
+          </div>
+
       <a class="btn nav-btn" *ngIf="loggedIn()">Flight Center</a>
       <a class="btn nav-btn" *ngIf="loggedIn()" >Flight Map</a>
       <a class="btn nav-btn" *ngIf="loggedIn()">Envets</a>
       <a class="btn nav-btn" *ngIf="loggedIn()" >Documents</a>
       <a class="btn nav-btn" *ngIf="loggedIn()">Resources</a>
+
+
+      <div ngbDropdown class="d-inline-block " *ngIf="loggedIn()">
+        <button class="btn  nav-btn" id="user" ngbDropdownToggle>Hi {{userName}} </button>
+        <div ngbDropdownMenu aria-labelledby="user">
+          <button  ngbDropdownItem [routerLink]="['/airport']">Settings</button>
+          <button ngbDropdownItem>My profile</button>
+          <button ngbDropdownItem (click)="signOut()" >Sign Out</button>
+
+        </div>
+      </div>
     </form>
+
 
 </nav>
