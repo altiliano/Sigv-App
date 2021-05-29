@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Airport } from '../../_models/airport';
 import { from } from 'rxjs';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AirportService } from '../../_services/airport.service';
 import { A11yModule } from '@angular/cdk/a11y';
 import { element } from 'protractor';
@@ -20,7 +20,7 @@ export class AirportComponent implements OnInit {
 
 
   displayedColumns: string[] = ['iacaoCode','country', 'city', 'name', 'id'];
-  dataSource = ELEMENT_DATA;
+  dataSource!: MatTableDataSource<Airport>;
 
   @ViewChild(MatTable, { static: true })
   table!: MatTable<any>;
@@ -29,6 +29,7 @@ export class AirportComponent implements OnInit {
   constructor(public dialog: MatDialog, private aeropotService: AirportService) {}
 
   ngOnInit(): void {
+    this.dataSource =  new MatTableDataSource();
     this.getAllAirports();
   }
 
@@ -50,37 +51,22 @@ export class AirportComponent implements OnInit {
 
   addAeroport(form: Airport): void {
     this.aeropotService.addAirport(form).subscribe( (result: Airport) => {
-      this.addNewAirportToTable(result)
+      this.getAllAirports();
       console.log("add new aerportor");
     }, error => {
       console.error("can't save aerport");
     });
+    this.table.renderRows();
 }
 
 getAllAirports() : void {
-  this.aeropotService.getAllAirport().subscribe((result :Airport[])   => {
-    this.dataSource.push(...result);
+  this.aeropotService.getAllAirport().subscribe((result : Airport[])   => {
+    this.dataSource.data = result;
   },error => {
       console.log("error getting airports");
   });
-  this.table.renderRows();
-}
-
-addNewAirportToTable( airport: Airport) {
-  this.dataSource.push({
-    country:airport.country,
-    city: airport.city,
-    name: airport.name,
-    id:airport.id,
-    icaoCode: airport.icaoCode,
-    iataCode: airport.iataCode,
-    latitude: airport.latitude,
-    longitude: airport.longitude
-  });
-  this.table.renderRows();
 }
 
 }
 
-const ELEMENT_DATA: Airport[] = [];
 

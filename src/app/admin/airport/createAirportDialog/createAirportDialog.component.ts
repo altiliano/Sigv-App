@@ -21,6 +21,7 @@ export class CreateAirportDialogComponent implements OnInit {
         icaoCode: ['' , Validators.required],
         iataCode: ['', [Validators.required]],
         city: ['' , Validators.required],
+        name: ['' , Validators.required],
         country: ['' , Validators.required],
         latitude: ['' , Validators.required],
         longitude: ['' , Validators.required],

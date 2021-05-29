@@ -43,9 +43,6 @@
     <td mat-footer-cell *matFooterCellDef>No records found.</td>
   </ng-container>
 
-  <ng-template [ngIf]="dataSource.length === 0">
-    <tr mat-footer-row *matFooterRowDef="['noRecord']"></tr>
-</ng-template>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
