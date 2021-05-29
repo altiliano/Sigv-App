@@ -19,7 +19,7 @@ export class AirportComponent implements OnInit {
   aeroport!: Airport;
 
 
-  displayedColumns: string[] = ['iacaoCode','country', 'city', 'name', 'id'];
+  displayedColumns: string[] = ['id','iacaoCode','country', 'city', 'name', 'actions'];
   dataSource!: MatTableDataSource<Airport>;
 
   @ViewChild(MatTable, { static: true })
