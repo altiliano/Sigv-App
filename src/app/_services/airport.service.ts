@@ -20,4 +20,13 @@ export class AirportService {
   addAirport(airport: Airport) {
     return  this.http.post<Airport>(this.baseUrl + 'create',airport);
   }
+
+  deleteAirport(id: string) {
+   return this.http.post<void>(this.baseUrl + 'delete/'+ id, null);
+  }
+
+  editAirport(airport: Airport) {
+    return this.http.put<Airport>(this.baseUrl + 'edit', airport);
+  }
+
 }

@@ -2,7 +2,7 @@
 
 <div class="container">
 
-  <button mat-raised-button (click)="openDialog()" class="btn btn-primary">Add new Aeroport</button>
+  <button mat-raised-button (click)="addNewAirportDialog()" class="btn btn-primary">Add new Aeroport</button>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
@@ -35,13 +35,13 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td mat-cell *matCellDef="let element" >
-        <button mat-mini-fab  color="primary"  class="mr-1" aria-label="detail"  matTooltip="Detail" matTooltipPosition="above">
+        <button mat-mini-fab  color="primary"  class="mr-1" aria-label="detail"(click)="detailAirportDialog(element)"   matTooltip="Detail" matTooltipPosition="above">
           <mat-icon>assignment</mat-icon>
         </button>
-        <button mat-mini-fab  color="primary" class="mr-1"  aria-label="edit"   matTooltip="Edit" matTooltipPosition="above">
+        <button mat-mini-fab  color="primary" class="mr-1" (click)="editAirportDialog(element)" aria-label="edit"   matTooltip="Edit" matTooltipPosition="above">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-mini-fab  color="primary" class="mr-1"  aria-label="delete" matTooltip="Delete" matTooltipPosition="above">
+        <button mat-mini-fab  color="primary" class="mr-1"  (click)="deleteAirport(element.id)" aria-label="delete" matTooltip="Delete" matTooltipPosition="above">
           <mat-icon>delete</mat-icon>
         </button>
     </td>

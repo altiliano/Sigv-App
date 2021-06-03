@@ -5,19 +5,22 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-createAeroportDialog',
+  selector: 'app-createAirportDialog',
   templateUrl: './createAirportDialog.component.html',
   styleUrls: ['./createAirportDialog.component.css']
 })
 export class CreateAirportDialogComponent implements OnInit {
-  aeroportForm: FormGroup;
-  aeroport?: Airport ;
+  airportForm: FormGroup;
+  title: string  = "Add new Aeroport";
+  isEditable!: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<CreateAirportDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Airport, private fb: FormBuilder) {
+    @Inject(MAT_DIALOG_DATA) public data: {editable: boolean,airport: Airport}, private fb: FormBuilder) {
 
-      this.aeroportForm = this.fb.group({
+
+      this.airportForm = this.fb.group({
+        id:  ['' , null],
         icaoCode: ['' , Validators.required],
         iataCode: ['', [Validators.required]],
         city: ['' , Validators.required],
@@ -27,6 +30,7 @@ export class CreateAirportDialogComponent implements OnInit {
         longitude: ['' , Validators.required],
 
       });
+
     }
 
   onNoClick(): void {
@@ -35,16 +39,41 @@ export class CreateAirportDialogComponent implements OnInit {
 
 
   ngOnInit() {
+
+    this.setupEditAirportForm();
+
+  }
+
+
+  setupEditAirportForm() {
+
+    if(this.data.airport != null) {
+      this.title ="Edit Airport";
+      this.airportForm.patchValue({
+        id: this.data.airport.id,
+        icaoCode: this.data.airport.icaoCode,
+        iataCode: this.data.airport.iataCode,
+        city: this.data.airport.city,
+        name: this.data.airport.name,
+        country: this.data.airport.country,
+        latitude: this.data.airport.latitude,
+        longitude: this.data.airport.longitude})
+        console.log(this.data.airport.city);
+    }
+    this.isEditable = this.data.editable;
+
   }
 
   saveAeroport(){
-    if (this.aeroportForm.valid) {
-      this.aeroport = Object.assign({}, this.aeroportForm.value);
-      console.log("adding new aerport: " + this.aeroport?.city)
-      this.dialogRef.close({data:this.aeroport});
+    if (this.airportForm.valid) {
+      this.dialogRef.close({data: Object.assign({}, this.airportForm.value)});
     } else {
       console.error("is not valid form")
     }
+  }
+
+  close(){
+    this.dialogRef.close();
   }
 
 }

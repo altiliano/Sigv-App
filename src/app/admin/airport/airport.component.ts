@@ -7,6 +7,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { AirportService } from '../../_services/airport.service';
 import { A11yModule } from '@angular/cdk/a11y';
 import { element } from 'protractor';
+import { isNonNullExpression } from 'typescript';
 
 @Component({
   selector: 'app-airport',
@@ -16,7 +17,7 @@ import { element } from 'protractor';
 export class AirportComponent implements OnInit {
   animal!: string;
   name!: string;
-  aeroport!: Airport;
+  airport!: Airport;
 
 
   displayedColumns: string[] = ['id','iacaoCode','country', 'city', 'name', 'actions'];
@@ -34,19 +35,34 @@ export class AirportComponent implements OnInit {
   }
 
 
-  openDialog(): void {
+  openDialog(form: Airport, isEditable: boolean): void {
     const dialogRef = this.dialog.open(CreateAirportDialogComponent, {
       width: '650px',
       height: '450px',
-      data: {aeroport: this.aeroport}
+      data: {airport: form, editable: isEditable}
     });
 
     dialogRef.afterClosed().subscribe(result  => {
       console.log('The dialog was closed');
-      this.aeroport = result.data ;
-      console.log('Aerport after close the dialod is '+ this.aeroport.city);
-      this.addAeroport(this.aeroport);
+    if(result != null) {
+      this.airport = result.data ;
+      console.log(this.airport);
+      if(this.airport != null &&  this.airport.id != null){
+        this.saveAirport(this.airport);
+      }else {
+        this.addAeroport(this.airport);
+      }
+
+       }
     });
+  }
+
+  addNewAirportDialog() {
+    this.openDialog(this.airport, true);
+  }
+
+  editAirportDialog(airport: Airport) {
+    this.openDialog(airport, true);
   }
 
   addAeroport(form: Airport): void {
@@ -65,6 +81,29 @@ getAllAirports() : void {
   },error => {
       console.log("error getting airports");
   });
+}
+
+deleteAirport(id: string) {
+  this.aeropotService.deleteAirport(id).subscribe( () => {
+    this.getAllAirports();
+
+  }, error => {
+    console.log(error)
+  });
+
+}
+
+saveAirport(airport: Airport) {
+  this.aeropotService.editAirport(airport).subscribe( () => {
+    this.getAllAirports();
+
+  }, error => {
+    console.log(error)
+  });
+}
+
+detailAirportDialog(airport: Airport) {
+  this.openDialog(airport, false);
 }
 
 }
