@@ -42,15 +42,7 @@ export class HomeComponent implements OnInit {
 
   login() {
   if  (this.loginForm.valid)  {
-    this.authService.login(this.model).subscribe( next => {
-      //this.alertify.success('logged in sucessfully');
-      console.error("login succes")
-    }, error => {
-       //this.alertify.error(error);
-    }, () => {
-      console.error("calling route")
-        this.router.navigate(['/dashboard']);
-    });
+    this.authService.login(this.model);
   }
 
   }

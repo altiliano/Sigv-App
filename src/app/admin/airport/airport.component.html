@@ -47,14 +47,14 @@
     </td>
   </ng-container>
 
-
-
   <ng-container matColumnDef="noRecord">
     <td mat-footer-cell *matFooterCellDef>No records found.</td>
   </ng-container>
 
-
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+<ng-container matColumnDef="page">
+ <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</ng-container>
 </div>

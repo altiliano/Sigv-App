@@ -1,20 +1,21 @@
+import { SearchResult } from './../_models/searchResult';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Airport } from '../_models/airport';
 import { Route } from '@angular/router';
+import { SearchRequest } from '../_models/SeachRequest';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AirportService {
   baseUrl = environment.apiUrl + 'airport/';
-
   constructor(private http: HttpClient) { }
 
 
   getAllAirport() {
-    return this.http.get<Airport[]>(this.baseUrl + 'all');
+    return this.http.get<SearchResult>(this.baseUrl + 'search/?'+'size='+20+'&number='+0);
   }
 
   addAirport(airport: Airport) {

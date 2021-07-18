@@ -21,11 +21,7 @@ export class DashboardComponent implements OnInit {
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
-    this.dashboardService.getUserDetail().subscribe((user: User) => {
-      this.user = user;
-    }, error => {
-      console.log(" error geting user informations")
-    });
+
   }
 
 }

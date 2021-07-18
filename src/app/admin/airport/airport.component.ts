@@ -8,6 +8,7 @@ import { AirportService } from '../../_services/airport.service';
 import { A11yModule } from '@angular/cdk/a11y';
 import { element } from 'protractor';
 import { isNonNullExpression } from 'typescript';
+import { SearchResult } from '../../_models/searchResult';
 
 @Component({
   selector: 'app-airport',
@@ -58,11 +59,11 @@ export class AirportComponent implements OnInit {
   }
 
   addNewAirportDialog() {
-    this.openDialog(this.airport, true);
+    this.openDialog(this.airport, false);
   }
 
   editAirportDialog(airport: Airport) {
-    this.openDialog(airport, true);
+    this.openDialog(airport, false);
   }
 
   addAeroport(form: Airport): void {
@@ -76,8 +77,8 @@ export class AirportComponent implements OnInit {
 }
 
 getAllAirports() : void {
-  this.aeropotService.getAllAirport().subscribe((result : Airport[])   => {
-    this.dataSource.data = result;
+  this.aeropotService.getAllAirport().subscribe((result : SearchResult)   => {
+    this.dataSource.data = result.content;
   },error => {
       console.log("error getting airports");
   });

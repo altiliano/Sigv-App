@@ -8,6 +8,7 @@ import { User } from '../_models/user';
 import { UserRegister } from '../_models/userRegister';
 import { HttpHeaders } from '@angular/common/http';
 import { Authenticate } from '../_models/authenticate';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -19,22 +20,28 @@ export class AuthService {
   currentUser!: User;
   authenticate!: Authenticate;
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient, private router: Router) { }
 
 
 login(model: any) {
   return this.http.post(this.baseUrl + 'login', model).
-      pipe(
-        map((response: any) => {
+      subscribe(
+        (response: any) => {
           const authenticate = response;
           if(authenticate) {
             localStorage.setItem('token',authenticate.token);
             //localStorage.setItem('user', JSON.stringify(user.user));
             this.decodeToken = this.jwtHelper.decodeToken;
+            console.error("set token: "+ authenticate.token);
             //this.currentUser = user.user;
+            this.router.navigate(['/dashboard']);
+
           }
-        })
-      );
+        },error => {
+            console.error("error when trying to logging");
+
+        });
+
 
 }
 
@@ -63,8 +70,8 @@ register(user: UserRegister)  {
 
  isTokenExpired() {
   const token = this.getLocalStoreToken();
-  if(!token)  {
-    return false;
+  if(token == null)  {
+    return true;
   }
   return !this.jwtHelper.isTokenExpired(token);
  }
