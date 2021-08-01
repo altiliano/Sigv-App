@@ -4,6 +4,7 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import {faChartBar} from '@fortawesome/free-solid-svg-icons';
 import { DashboardService } from '../_services/dashboard.service';
 import { User } from '../_models/user';
+import { AnyARecord } from 'dns';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,13 +16,19 @@ export class DashboardComponent implements OnInit {
   faCoffee = faCoffee;
   faChartBar = faChartBar;
   faPlane = faPlane;
-  user: any;
+  user!: User;
 
 
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit() {
+   this.dashboardService.getUserDetail().subscribe(
+     (result : User) => {
+       this.user = result;
+     console.log( "loaded user: " + this.user);
+   }, error => {
 
+   });
   }
 
 }

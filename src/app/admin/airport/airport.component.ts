@@ -9,6 +9,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { element } from 'protractor';
 import { isNonNullExpression } from 'typescript';
 import { SearchResult } from '../../_models/searchResult';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-airport',
@@ -26,13 +27,20 @@ export class AirportComponent implements OnInit {
 
   @ViewChild(MatTable, { static: true })
   table!: MatTable<any>;
+  @ViewChild(MatPaginator)
+  paginator!: MatPaginator;
 
 
   constructor(public dialog: MatDialog, private aeropotService: AirportService) {}
 
   ngOnInit(): void {
     this.dataSource =  new MatTableDataSource();
+
     this.getAllAirports();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
 
@@ -46,15 +54,15 @@ export class AirportComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result  => {
       console.log('The dialog was closed');
     if(result != null) {
-      this.airport = result.data ;
-      console.log(this.airport);
-      if(this.airport != null &&  this.airport.id != null){
-        this.saveAirport(this.airport);
-      }else {
-        this.addAeroport(this.airport);
-      }
+      let airportForm = result.data;
 
-       }
+      if(airportForm != null &&  airportForm.id != null){
+        this.saveAirport(airportForm);
+      }else {
+        this.addAeroport(airportForm);
+      }
+    }
+
     });
   }
 
@@ -77,8 +85,19 @@ export class AirportComponent implements OnInit {
 }
 
 getAllAirports() : void {
-  this.aeropotService.getAllAirport().subscribe((result : SearchResult)   => {
+  let pageSize = 10;
+  let pageNumber = 0
+  if (this.dataSource != null && this.dataSource.paginator != null) {
+    pageSize = this.dataSource.paginator.pageSize;
+    pageNumber = this.dataSource.paginator.pageIndex;
+  }
+  this.aeropotService.searchAirport(pageSize, pageNumber).subscribe((result : SearchResult)   => {
     this.dataSource.data = result.content;
+    if(this.dataSource.paginator != null ) {
+      this.dataSource.paginator.pageSize = result.pageSize;
+      this.dataSource.paginator.pageIndex = result.pageNumber;
+    }
+
   },error => {
       console.log("error getting airports");
   });
@@ -95,6 +114,7 @@ deleteAirport(id: string) {
 }
 
 saveAirport(airport: Airport) {
+console.log(airport.id);
   this.aeropotService.editAirport(airport).subscribe( () => {
     this.getAllAirports();
 
@@ -104,7 +124,7 @@ saveAirport(airport: Airport) {
 }
 
 detailAirportDialog(airport: Airport) {
-  this.openDialog(airport, false);
+  this.openDialog(airport, true);
 }
 
 }

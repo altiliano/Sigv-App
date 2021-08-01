@@ -14,8 +14,8 @@ export class AirportService {
   constructor(private http: HttpClient) { }
 
 
-  getAllAirport() {
-    return this.http.get<SearchResult>(this.baseUrl + 'search/?'+'size='+20+'&number='+0);
+  searchAirport(pageSize: number, pageNumber: number) {
+    return this.http.get<SearchResult>(this.baseUrl + 'search/?'+'size='+pageSize+'&number='+pageNumber);
   }
 
   addAirport(airport: Airport) {

@@ -1,3 +1,4 @@
+import { Authority } from './authority';
 export interface User {
   id: number;
   firstName: string;
@@ -9,8 +10,9 @@ export interface User {
   hoursFlown: number;
   pireps: number;
   averageLandingRate: number;
-  currentLocation: String;
+  currentLocation: string;
   birthDate: Date;
   username: string;
+  authorities: Authority[];
 
 }

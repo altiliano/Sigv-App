@@ -16,14 +16,14 @@
   <div class="row statistic-table ">
     <div class="col-2 align-self-center">
       <div class="statistic-table-column">
-        <h3 class="column-label-header"> {{user.pireps}} </h3>
+        <h3 class="column-label-header" > {{user?.pireps}} </h3>
         <label class="column-label-description">PIREPs Filed</label>
       </div>
     </div>
 
     <div class="col-2 align-self-center">
       <div class="statistic-table-column">
-        <h3 class="column-label-header">{{user.averageLandingRate}} FPM</h3>
+        <h3 class="column-label-header">{{user?.averageLandingRate}} FPM</h3>
         <label class="column-label-description">Average Landing Rate</label>
       </div>
     </div>
@@ -32,7 +32,7 @@
 
     <div class="col-2 align-self-center">
       <div class="statistic-table-column">
-        <h3 class="column-label-header">{{user.hoursFlown}}</h3>
+        <h3 class="column-label-header">{{user?.hoursFlown}}</h3>
         <label class="column-label-description">Hours</label>
       </div>
     </div>
@@ -40,14 +40,14 @@
 
     <div class="col-2 align-self-center">
       <div class="statistic-table-column">
-        <h3 class="column-label-header">{{user.points}}</h3>
+        <h3 class="column-label-header">{{user?.points}}</h3>
         <label class="column-label-description">Points</label>
       </div>
     </div>
 
     <div class="col-2 align-self-center">
       <div class="statistic-table-column">
-        <h3 class="column-label-header">{{user.points}}</h3>
+        <h3 class="column-label-header">{{user?.points}}</h3>
         <label class="column-label-description"> Bonus Points</label>
       </div>
     </div>
@@ -55,8 +55,8 @@
 
     <div class="col-2 align-self-center">
       <div class="statistic-table-column">
-        <h3 class="column-label-header" *ngIf="user.currentLocation != null">{{user.currentLocation}}</h3>
-        <h3 class="column-label-header" *ngIf="user.currentLocation == null">LPPT</h3>
+        <h3 class="column-label-header" *ngIf="user?.currentLocation != null">{{user?.currentLocation}}</h3>
+        <h3 class="column-label-header" *ngIf="user?.currentLocation == null">LPPT</h3>
         <label class="column-label-description">Current Location</label>
       </div>
     </div>

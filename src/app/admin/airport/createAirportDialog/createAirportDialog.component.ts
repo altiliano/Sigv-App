@@ -20,7 +20,7 @@ export class CreateAirportDialogComponent implements OnInit {
 
 
       this.airportForm = this.fb.group({
-        id:  ['' , null],
+        id:  [null , null],
         icaoCode: ['' , Validators.required],
         iataCode: ['', [Validators.required]],
         city: ['' , Validators.required],
@@ -38,14 +38,13 @@ export class CreateAirportDialogComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-
-    this.setupEditAirportForm();
+  ngOnInit(): void {
+    this.setupAirportForm();
 
   }
 
 
-  setupEditAirportForm() {
+  setupAirportForm() {
 
     if(this.data.airport != null) {
       this.title ="Edit Airport";
@@ -60,8 +59,8 @@ export class CreateAirportDialogComponent implements OnInit {
         longitude: this.data.airport.longitude})
         console.log(this.data.airport.city);
     }
-    this.isEditable = this.data.editable;
 
+    this.isEditable = this.data.editable;
   }
 
   saveAeroport(){
