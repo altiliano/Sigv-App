@@ -28,6 +28,7 @@ import { AirportComponent } from './admin/airport/airport.component';
 import { CreateAirportDialogComponent } from './admin/airport/createAirportDialog/createAirportDialog.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { AlertifyService } from './_services/alertify.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -68,7 +69,7 @@ export function tokenGetter() {
     MatDialogModule
   ],
   exports:[ ],
-  providers: [AuthService, DashbordResolverService,
+  providers: [AuthService, DashbordResolverService, AlertifyService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

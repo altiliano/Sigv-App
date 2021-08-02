@@ -9,6 +9,7 @@ import { UserRegister } from '../_models/userRegister';
 import { HttpHeaders } from '@angular/common/http';
 import { Authenticate } from '../_models/authenticate';
 import { Router } from '@angular/router';
+import { AlertifyService } from './alertify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class AuthService {
   currentUser!: User;
   authenticate!: Authenticate;
 
-constructor(private http: HttpClient, private router: Router) { }
+constructor(private http: HttpClient, private router: Router, private alertifyService: AlertifyService) { }
 
 
 login(model: any) {
@@ -38,7 +39,7 @@ login(model: any) {
 
           }
         },error => {
-            console.error("error when trying to logging");
+          this.alertifyService.error("Confirm that you are using correct useraname and password");
 
         });
 
