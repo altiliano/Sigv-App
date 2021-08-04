@@ -1,90 +1,119 @@
-
 <div class="login-page">
   <div class="row">
-    <div class="col-4 left-side">
+    <div class="col-8 left-side">
       <div class="container login-body">
         <div class="login__logo">
           <img alt="start image" src="../../assets/vRYR61-logo.png" width="100%">
-          <h5 *ngIf="isLoginForm">Sign In To Pilot Area</h5>
-          <h5 *ngIf="isRegisterForm">Create new User</h5>
         </div>
 
-        <div class="main-form" *ngIf="!isLoginForm && !isRegisterForm" >
-          <button type="button" class="btn btn-primary" (click)="goToLoginForm()">I have already account</button>
-          <button type="button" class="btn btn-primary" (click)="gotoRegisterForm()">I don't have account</button>
-        </div>
-        <form [formGroup]="registerForm" (ngSubmit)="commumSubmit()" >
-        <div class="rgister-form" *ngIf="!isLoginForm && isRegisterForm"  >
+        <mat-tab-group>
+          <mat-tab label="Login">
+            <form [formGroup]="loginForm" (ngSubmit)="login()">
+              <div class="login-form">
+                <div class="input-group"
+                  [ngClass]="{'input-with-error':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}">
+                  <input class="form-control" formControlName="email" type="text" placeholder="Email"
+                    [(ngModel)]="model.username"
+                    [ngClass]="{'is-invalid':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}" />
+                  <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')"
+                    class="invalid-feedback">Email is required</div>
 
-          <div class="input-group" [ngClass]="{'input-with-error':  registerForm.get('email')?.touched  && registerForm.get('email')?.errors}">
-            <input class="form-control hide-placeHolder" formControlName="email" type="text" placeholder="Email"  [ngClass]="{'is-invalid':  registerForm.get('email')?.touched  && registerForm.get('email')?.errors}"/>
-            <div class="invalid-feedback" *ngIf="registerForm.get('email')?.touched  && registerForm.get('email')?.hasError('required')">Email is required</div>
-          </div>
+                </div>
+                <div class="input-group"
+                  [ngClass]="{'input-with-error':loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password') }">
+                  <input class="form-control" type="password" formControlName="password" placeholder="Password"
+                    [(ngModel)]="model.password"
+                    [ngClass]="{'is-invalid': loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password')}" />
+                  <div class="invalid-feedback"
+                    *ngIf="loginForm.get('password')?.touched  && loginForm.get('password')?.hasError('required')">
+                    Password is required
+                  </div>
 
-          <div class="input-group"[ngClass]="{'input-with-error':  registerForm.get('emailConfirmation')?.touched  && registerForm.get('emailConfirmation')?.errors}" >
-            <input class="form-control hide-placeHolder" [ngClass]="{'is-invalid':  registerForm.get('emailConfirmation')?.touched  && registerForm.get('emailConfirmation')?.errors}" formControlName="emailConfirmation" type="text" placeholder="confirm email" />
-            <div class="invalid-feedback" *ngIf="registerForm.get('emailConfirmation')?.touched  && registerForm.get('emailConfirmation')?.hasError('required')">Cofirm email is required</div>
-          </div>
+                  <div class="login-remember">
+                    <input class="form-control" type="checkbox" />
+                    <div class="row">
+                      <p class="col">Remember me</p>
+                      <a class="col">Forgetten Password?</a>
+                    </div>
+                  </div>
+                </div>
 
-          <div class="input-group"  [ngClass]="{'input-with-error':  registerForm.get('password')?.touched  && registerForm.get('password')?.errors}">
-            <input class="form-control hide-placeHolder"  [ngClass]="{'is-invalid':registerForm.get('password')?.touched  && registerForm.get('password')?.errors && registerForm.get('password') }" formControlName="password" type="password" placeholder="password" />
-            <div class="invalid-feedback" *ngIf="registerForm.get('password')?.touched  && registerForm.get('password')?.hasError('required')">Password is required</div>
-          </div>
+                <div class="login-form-footer">
+                  <button type="button" class="btn btn-primary" type="submit">Login</button>
+                </div>
+              </div>
+            </form>
+          </mat-tab>
 
-          <div class="input-group"  [ngClass]="{'input-with-error':  registerForm.get('confirmPassword')?.touched  && registerForm.get('confirmPassword')?.errors}">
-            <input class="form-control hide-placeHolder" formControlName="confirmPassword" type="password" placeholder="confirm password"
-            [ngClass]="{'is-invalid':registerForm.get('confirmPassword')?.touched  && registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword') }"/>
-            <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword')?.touched  && registerForm.get('confirmPassword')?.hasError('required')">Confirm Password is required</div>
-          </div>
+          <mat-tab label="New User">
+            <form [formGroup]="registerForm" (ngSubmit)="commumSubmit()">
+              <div class="rgister-form">
 
-          <div class="input-group" [ngClass]="{'input-with-error':  registerForm.get('birthDate')?.touched  && registerForm.get('birthDate')?.errors}">
-            <input class="form-control hide-placeHolder" formControlName="birthDate" type="text" placeholder="date Of Birth Date"
-            [ngClass]="{'is-invalid':  registerForm.get('birthDate')?.touched  && registerForm.get('birthDate')?.errors}"  matInput [matDatepicker]="picker"/>
-            <div class="calender-right-icon">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker class="input-group" #picker></mat-datepicker>
-            </div>
-            <div class="invalid-feedback" *ngIf="registerForm.get('birthDate')?.touched  && registerForm.get('birthDate')?.hasError('required')">Date of Birthday is required</div>
-          </div>
+                <div class="input-group"
+                  [ngClass]="{'input-with-error':  registerForm.get('email')?.touched  && registerForm.get('email')?.errors}">
+                  <input class="form-control hide-placeHolder" formControlName="email" type="text" placeholder="Email"
+                    [ngClass]="{'is-invalid':  registerForm.get('email')?.touched  && registerForm.get('email')?.errors}" />
+                  <div class="invalid-feedback"
+                    *ngIf="registerForm.get('email')?.touched  && registerForm.get('email')?.hasError('required')">Email
+                    is required</div>
+                </div>
 
-          <div class="login-form-footer">
-            <button class="btn btn-primary" [disabled]="!registerForm.valid"  type="submit">Register</button>
-            <button type="button" class="btn btn-primary rigth-btn" (click)="goToLoginForm()">Login</button>
-          </div>
-        </div>
-        </form>
+                <div class="input-group"
+                  [ngClass]="{'input-with-error':  registerForm.get('emailConfirmation')?.touched  && registerForm.get('emailConfirmation')?.errors}">
+                  <input class="form-control hide-placeHolder"
+                    [ngClass]="{'is-invalid':  registerForm.get('emailConfirmation')?.touched  && registerForm.get('emailConfirmation')?.errors}"
+                    formControlName="emailConfirmation" type="text" placeholder="confirm email" />
+                  <div class="invalid-feedback"
+                    *ngIf="registerForm.get('emailConfirmation')?.touched  && registerForm.get('emailConfirmation')?.hasError('required')">
+                    Cofirm email is required</div>
+                </div>
 
-        <form [formGroup]="loginForm" (ngSubmit)="login()" >
-        <div class="login-form" *ngIf="isLoginForm && !isRegisterForm" >
-          <div class="input-group"   [ngClass]="{'input-with-error':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}">
-            <input class="form-control" formControlName="email" type="text" placeholder="Email"  [(ngModel)]="model.username"
-            [ngClass]="{'is-invalid':  loginForm.get('email')?.touched  && loginForm.get('email')?.errors}"/>
-            <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')"  class="invalid-feedback">Email is required</div>
+                <div class="input-group"
+                  [ngClass]="{'input-with-error':  registerForm.get('password')?.touched  && registerForm.get('password')?.errors}">
+                  <input class="form-control hide-placeHolder"
+                    [ngClass]="{'is-invalid':registerForm.get('password')?.touched  && registerForm.get('password')?.errors && registerForm.get('password') }"
+                    formControlName="password" type="password" placeholder="password" />
+                  <div class="invalid-feedback"
+                    *ngIf="registerForm.get('password')?.touched  && registerForm.get('password')?.hasError('required')">
+                    Password is required</div>
+                </div>
 
-          </div>
-          <div class="input-group" [ngClass]="{'input-with-error':loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password') }">
-            <input class="form-control" type="password" formControlName="password" placeholder="Password" [(ngModel)]="model.password"
-            [ngClass]="{'is-invalid': loginForm.get('password')?.touched  && loginForm.get('password')?.errors && loginForm.get('password')}" />
-            <div class="invalid-feedback" *ngIf="loginForm.get('password')?.touched  && loginForm.get('password')?.hasError('required')">Password is required</div>
-          </div>
-        <div class="input-group login-remember">
-          <input class="form-control" type="checkbox" />
-          <div class="row">
-            <p class="col">Remember me</p>
-            <a class="col">Forgetten Password?</a>
-          </div>
-        </div>
-        <div class="login-form-footer">
-          <button type="button" class="btn btn-primary" type="submit">Login</button>
-          <button type="button" class="btn btn-primary rigth-btn" (click)="gotoRegisterForm()">Register</button>
-        </div>
-        </div>
-        </form>
+                <div class="input-group"
+                  [ngClass]="{'input-with-error':  registerForm.get('confirmPassword')?.touched  && registerForm.get('confirmPassword')?.errors}">
+                  <input class="form-control hide-placeHolder" formControlName="confirmPassword" type="password"
+                    placeholder="confirm password"
+                    [ngClass]="{'is-invalid':registerForm.get('confirmPassword')?.touched  && registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword') }" />
+                  <div class="invalid-feedback"
+                    *ngIf="registerForm.get('confirmPassword')?.touched  && registerForm.get('confirmPassword')?.hasError('required')">
+                    Confirm Password is required</div>
+                </div>
+
+                <div class="input-group"
+                  [ngClass]="{'input-with-error':  registerForm.get('birthDate')?.touched  && registerForm.get('birthDate')?.errors}">
+                  <input class="form-control hide-placeHolder" formControlName="birthDate" type="text"
+                    placeholder="date Of Birth Date"
+                    [ngClass]="{'is-invalid':  registerForm.get('birthDate')?.touched  && registerForm.get('birthDate')?.errors}"
+                    matInput [matDatepicker]="picker" />
+                  <div class="calender-right-icon">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker class="input-group" #picker></mat-datepicker>
+                  </div>
+                  <div class="invalid-feedback"
+                    *ngIf="registerForm.get('birthDate')?.touched  && registerForm.get('birthDate')?.hasError('required')">
+                    Date of Birthday is required</div>
+                </div>
+
+                <div class="login-form-footer">
+                  <button class="btn btn-primary" type="submit">Register</button>
+                </div>
+              </div>
+            </form>
+          </mat-tab>
+        </mat-tab-group>
+
       </div>
     </div>
-  <div class="col-8 rigth-side">
+    <div class="col-4 rigth-side">
+    </div>
+  </div>
 </div>
-</div>
-</div>
-
-
