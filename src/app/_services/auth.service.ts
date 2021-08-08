@@ -33,8 +33,8 @@ login(model: any) {
             localStorage.setItem('token',authenticate.token);
             //localStorage.setItem('user', JSON.stringify(user.user));
             this.decodeToken = this.jwtHelper.decodeToken;
-            console.error("set token: "+ authenticate.token);
             //this.currentUser = user.user;
+            this.alertifyService.success("Welcome");
             this.router.navigate(['/dashboard']);
 
           }
@@ -48,7 +48,10 @@ login(model: any) {
 
 
 loggedIn()  {
-  return this.isTokenExpired();
+  if (this.isTokenExpired()) {
+    return false;
+  }
+  return true;
 }
 
 register(user: UserRegister)  {
@@ -74,7 +77,7 @@ register(user: UserRegister)  {
   if(token == null)  {
     return true;
   }
-  return !this.jwtHelper.isTokenExpired(token);
+  return this.jwtHelper.isTokenExpired(token);
  }
 
  getLocalStoreToken() {

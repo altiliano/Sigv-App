@@ -35,7 +35,7 @@ export class NavComponent implements OnInit {
 
   signOut() {
     localStorage.removeItem('token');
-    this.router.navigate(['/home']);
+    this.router.navigate(['']);
 
   }
 

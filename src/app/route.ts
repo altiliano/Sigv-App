@@ -16,10 +16,10 @@ export const appRoutes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {path: 'dashboard', component: DashboardComponent,
-                          resolve: {users:DashbordResolverService }},
+                          resolve: {user: DashbordResolverService }},
       {path: 'airport', component: AirportComponent}
     ]
   },
 
-  { path: '**', pathMatch: 'full', redirectTo: '' }
+  { path: '**', pathMatch: 'full', redirectTo: 'dashboard' }
 ]
